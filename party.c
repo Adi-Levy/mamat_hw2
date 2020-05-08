@@ -16,6 +16,7 @@
 
 #define MAX_PARTY_NAME      20
 
+/* test */
 
 /*
  * Types

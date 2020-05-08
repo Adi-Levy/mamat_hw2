@@ -7,7 +7,7 @@ CCLINK=$(CC)
 # Libraries to use (empty for now)
 LIBS=				
 # Objects to link together
-OBJS=party.o voter.o main.o
+OBJS=party.o voter.o main.o	
 # The remove file command to be used with "clean" target
 RM=rm -f
 

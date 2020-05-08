@@ -55,6 +55,50 @@ static Voter* VoterList = NULL;
 */
 void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
 {
+    /*
+     * allocate memory on heap for voter name
+     */
+    char* fullName = (char*)malloc((strlen(pName) + strlen(pSurname) + 2) * sizeof(char));
+    if(fullName == NULL);
+    {
+        exit(-1);
+    }
+    strcpy(fullName, pName);
+    strcat(fullName, " ");
+    strcat(fullName, pSurname);
+    /* 
+     * make voter name upper case
+     */
+    char* curr_chr = fullName;
+    while (*curr_chr)
+    {
+        *curr_chr = toupper(*curr_chr);
+        curr_chr++;
+    }
+    /*
+     * creat new voter struct on heap with the info given
+     */
+    Voter* new_voter = (Voter*)malloc(sizeof(Voter));
+    if (new_voter == NULL)
+    {
+        free(fullName);
+        exit(-1);
+    }
+    new_voter->ID = ID;
+    new_voter->pName = fullName;
+    new_voter->pParty = pParty;
+    /*
+     * find the place in the voter list to enter the new voter by ID so it is sorted from low to high
+     */
+    Voter* curr_voter = VoterList;
+    while (curr_voter->ID < ID)
+        curr_voter++;
+    curr_voter--;
+    /*
+     * enter voter in to voter list in the correct locaation to keep list sorted
+     */
+    new_voter->pNext = curr_voter->pNext;
+    curr_voter->pNext = new_voter;
 }
 
 
@@ -69,6 +113,13 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
 */
 void FreeVoters()
 {
+    while (VoterList != NULL)
+    {
+        free(VoterList->pName);
+        Voter* tmp = VoterList;
+        VoterList = VoterList->pNext;
+        free(tmp);
+    }
 }
 
 

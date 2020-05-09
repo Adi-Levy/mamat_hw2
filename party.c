@@ -16,13 +16,12 @@
 
 #define MAX_PARTY_NAME      20
 
-
 /*
  * Types
  */
 typedef struct _Party
 {
-    char Party[MAX_PARTY_NAME];
+    char Party_name[MAX_PARTY_NAME];
     int NumVoters;
 
     struct _Party* pNext;
@@ -38,7 +37,9 @@ void PrintError(char* pPartyName);
 /*
  * Statics
  */
-static Party* PartyList = NULL;
+static Party* party_list_hd = NULL;
+static Party* new_party = NULL;
+static Party* curr_party = NULL;
 
 
 /*
@@ -59,6 +60,41 @@ static Party* PartyList = NULL;
 */
 char* AddVote(char* pPartyName)
 {
+    char ch = '-';
+    char* ret;
+    ret = strchr(ch, pPartyName);
+
+    // checking correctness of party name
+    if (((ret[0] == '-') && (ret[1] < A) && (ret[1] > Z)))
+    {
+        PrintError(pPartyName);
+        return NULL;
+    }
+
+    curr_party = party_list_hd;
+    while (curr_party != NULL)
+    {
+        
+        // if the party already exists
+        if (!strcmp(pPartyName, curr_party->Party_name)
+        {
+            (curr_party->NumVoters)++;
+            return curr_party->Party_name;
+        }
+        else
+        {
+            curr_party = curr_party->pNext;
+        }
+    }
+    //the party doesn't exist
+    new_party = (Party*)malloc(sizeof(Party));
+    if (new_party == NULL)
+        return NULL;
+    strcpy(new_party->Party_name, pPartyName);
+    new_party->NumVoters = 1;
+    new_party->pNext = party_list_hd;
+    party_list_hd = new_party;
+    return new_party->Party_name;
 }
 
 
@@ -73,6 +109,13 @@ char* AddVote(char* pPartyName)
 */
 void FreeParties()
 {
+    curr_party = party_list_hd;
+    while (curr_party != NULL)
+    {
+        party_list_hd = curr_party->pNext;
+        free(curr_party);
+        curr_party = party_list_hd;
+    }
 }
 
 
@@ -95,7 +138,7 @@ void PrintResult()
     /*
      * Iterate the party list and print the current number of voters for each party
      */
-    for (pParty = PartyList; pParty; pParty = pParty->pNext)
+    for (pParty = party_list_hd; pParty; pParty = pParty->pNext)
         printf("%s %d\n", pParty->Party, pParty->NumVoters);
     printf("\n");
 }

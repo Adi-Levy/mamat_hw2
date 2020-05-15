@@ -61,7 +61,14 @@ static Party* curr_party = NULL;
 char* AddVote(char* pPartyName)
 {
     char ch = '-';
-    char* ret;
+    char* ret = pPartyName;
+    /*while (ret <= pPartyName + strlen(pPartyName) - 1) {
+        ret = strchr(pPartyName, ch);
+        if ((*ret) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < A) && (ret[1] > Z)))) {
+            PrintError(pPartyName);
+            return NULL;
+        }
+    }*/
     ret = strchr(ch, pPartyName);
 
     // checking correctness of party name
@@ -70,7 +77,6 @@ char* AddVote(char* pPartyName)
         PrintError(pPartyName);
         return NULL;
     }
-
     curr_party = party_list_hd;
     while (curr_party != NULL)
     {
@@ -89,7 +95,7 @@ char* AddVote(char* pPartyName)
     //the party doesn't exist
     new_party = (Party*)malloc(sizeof(Party));
     if (new_party == NULL)
-        return NULL;
+        return NULL; //exit(-1);
     strcpy(new_party->Party_name, pPartyName);
     new_party->NumVoters = 1;
     new_party->pNext = party_list_hd;

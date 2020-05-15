@@ -62,21 +62,21 @@ char* AddVote(char* pPartyName)
 {
     char ch = '-';
     char* ret = pPartyName;
-    /*while (ret <= pPartyName + strlen(pPartyName) - 1) {
+    while (ret <= pPartyName + strlen(pPartyName) - 1) {
         ret = strchr(pPartyName, ch);
         if ((*ret) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < 'A') && (ret[1] > 'Z')))) {
             PrintError(pPartyName);
             return NULL;
         }
-    }*/
-    ret = strchr(pPartyName, ch);
+    }
+    /*ret = strchr(pPartyName, ch);
 
     // checking correctness of party name
     if (((ret[0] == '-') && (ret[1] < 'A') && (ret[1] > 'Z')))
     {
         PrintError(pPartyName);
         return NULL;
-    }
+    }*/
     curr_party = party_list_hd;
     while (curr_party != NULL)
     {

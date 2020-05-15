@@ -68,7 +68,7 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
      * allocate memory on heap for voter name
      */
     char* fullName = (char*)malloc((strlen(pName) + strlen(pSurname) + 2) * sizeof(char));
-    if(fullName == NULL);
+    if(fullName == NULL)
     {
         exit(-1);
     }
@@ -99,15 +99,18 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
     /*
      * find the place in the voter list to enter the new voter by ID so it is sorted from low to high
      */
-    Voter* curr_voter = VoterList;
-    while (curr_voter->ID < ID)
-        curr_voter++;
-    curr_voter--;
-    /*
-     * enter voter in to voter list in the correct locaation to keep list sorted
-     */
-    new_voter->pNext = curr_voter->pNext;
-    curr_voter->pNext = new_voter;
+    if (VoterList == NULL || VoterList->ID > ID) {
+        new_voter->pNext = VoterList;
+        VoterList = new_voter;
+    }
+    else {
+        Voter* curr_voter = VoterList;
+        while (curr_voter->pNext && curr_voter->pNext->ID < ID) {
+            curr_voter = curr_voter->pNext;
+        }
+        new_voter->pNext = curr_voter->pNext;
+        curr_voter->pNext = new_voter;
+    }
 }
 
 

@@ -60,7 +60,7 @@ static Party* curr_party = NULL;
 */
 char* AddVote(char* pPartyName)
 {
-    char ch = '-';
+    char ch = 9;
     char* ret = pPartyName;
     while (ret <= pPartyName + strlen(pPartyName) - 1 && ret) {
         ret = strchr(ret, ch);

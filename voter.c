@@ -55,18 +55,16 @@ static Voter* VoterList = NULL;
 */
 void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
 {
-    /*
-     * check for NULL in name because strlen doesn't
-     */
-    /*if (!(*pName)) {
+    
+    // check for NULL in name because strlen doesn't
+    if (!(*pName)) {
         *pName = (char*)"";
     }
     if (!(*pSurname)) {
         *pSurname = (char*)"";
-    }*/
-    /*
-     * allocate memory on heap for voter name
-     */
+    }
+    
+    // allocate memory on heap for voter name
     char* fullName = (char*)malloc((strlen(pName) + strlen(pSurname) + 2) * sizeof(char));
     if(fullName == NULL)
     {
@@ -75,18 +73,16 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
     strcpy(fullName, pName);
     strcat(fullName, " ");
     strcat(fullName, pSurname);
-    /* 
-     * make voter name upper case
-     */
+     
+    // make voter name upper case
     char* curr_chr = fullName;
     while (*curr_chr)
     {
         *curr_chr = toupper(*curr_chr);
         curr_chr++;
     }
-    /*
-     * creat new voter struct on heap with the info given
-     */
+    
+    // creat new voter struct on heap with the info given
     Voter* new_voter = (Voter*)malloc(sizeof(Voter));
     if (new_voter == NULL)
     {
@@ -96,13 +92,15 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
     new_voter->ID = ID;
     new_voter->pName = fullName;
     new_voter->pParty = pParty;
-    /*
-     * find the place in the voter list to enter the new voter by ID so it is sorted from low to high
-     */
+    
+    // find the place in the voter list to enter the new voter by ID so it is sorted from low to high
+    
+    // if list is empty or new voter should be first
     if (VoterList == NULL || VoterList->ID > ID) {
         new_voter->pNext = VoterList;
         VoterList = new_voter;
     }
+    // if voter should be mid or at rhe back of the list
     else {
         Voter* curr_voter = VoterList;
         while (curr_voter->pNext && curr_voter->pNext->ID < ID) {

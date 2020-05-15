@@ -60,14 +60,15 @@ static Party* curr_party = NULL;
 */
 char* AddVote(char* pPartyName)
 {
-    char ch = 9;
+    char ch = '-';
     char* ret = pPartyName;
-    while (ret <= pPartyName + strlen(pPartyName) - 1 && ret) {
+    while (ret <= pPartyName + strlen(pPartyName) - 2 && ret) {
         ret = strchr(ret, ch);
-        if (ret && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < 'A') && (ret[1] > 'Z')))) {
+        if (ret && (ret == &pPartyName[strlen(pPartyName) - 1] || !((ret[1] >= 'A') && (ret[1] <= 'Z')))) {
             PrintError(pPartyName);
             return NULL;
         }
+        if(ret) ret++;
     }
     /*ret = strchr(pPartyName, ch);
 

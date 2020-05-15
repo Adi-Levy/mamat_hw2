@@ -58,10 +58,10 @@ void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
     /*
      * check for NULL in name because strlen doesn't
      */
-    if (!(*pName) {
+    if (!(*pName)) {
         *pName = "";
     }
-    if (!(*pSurname) {
+    if (!(*pSurname)) {
         *pSurname = "";
     }
     /*

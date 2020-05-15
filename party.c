@@ -64,15 +64,15 @@ char* AddVote(char* pPartyName)
     char* ret = pPartyName;
     /*while (ret <= pPartyName + strlen(pPartyName) - 1) {
         ret = strchr(pPartyName, ch);
-        if ((*ret) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < A) && (ret[1] > Z)))) {
+        if ((*ret) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < 'A') && (ret[1] > 'Z')))) {
             PrintError(pPartyName);
             return NULL;
         }
     }*/
-    ret = strchr(ch, pPartyName);
+    ret = strchr(pPartyName, ch);
 
     // checking correctness of party name
-    if (((ret[0] == '-') && (ret[1] < A) && (ret[1] > Z)))
+    if (((ret[0] == '-') && (ret[1] < 'A') && (ret[1] > 'Z')))
     {
         PrintError(pPartyName);
         return NULL;
@@ -82,7 +82,7 @@ char* AddVote(char* pPartyName)
     {
         
         // if the party already exists
-        if (!strcmp(pPartyName, curr_party->Party_name)
+        if (!strcmp(pPartyName, curr_party->Party_name))
         {
             (curr_party->NumVoters)++;
             return curr_party->Party_name;
@@ -145,7 +145,7 @@ void PrintResult()
      * Iterate the party list and print the current number of voters for each party
      */
     for (pParty = party_list_hd; pParty; pParty = pParty->pNext)
-        printf("%s %d\n", pParty->Party, pParty->NumVoters);
+        printf("%s %d\n", pParty->Party_name, pParty->NumVoters);
     printf("\n");
 }
 

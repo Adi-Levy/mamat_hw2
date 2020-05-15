@@ -64,7 +64,7 @@ char* AddVote(char* pPartyName)
     char* ret = pPartyName;
     while (ret <= pPartyName + strlen(pPartyName) - 1) {
         ret = strchr(pPartyName, ch);
-        if ((*ret) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < 'A') && (ret[1] > 'Z')))) {
+        if ((*ret != NULL) && (ret != pPartyName + strlen(pPartyName) - 1 || ((ret[1] < 'A') && (ret[1] > 'Z')))) {
             PrintError(pPartyName);
             return NULL;
         }

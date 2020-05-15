@@ -56,6 +56,15 @@ static Voter* VoterList = NULL;
 void AddVoter(char* pName, char* pSurname, int ID, char* pParty)
 {
     /*
+     * check for NULL in name because strlen doesn't
+     */
+    if (!(*pName) {
+        *pName = "";
+    }
+    if (!(*pSurname) {
+        *pSurname = "";
+    }
+    /*
      * allocate memory on heap for voter name
      */
     char* fullName = (char*)malloc((strlen(pName) + strlen(pSurname) + 2) * sizeof(char));
